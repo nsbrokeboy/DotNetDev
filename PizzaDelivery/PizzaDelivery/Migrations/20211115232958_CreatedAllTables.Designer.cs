@@ -10,7 +10,7 @@ using PizzaDelivery.Data;
 namespace PizzaDelivery.Migrations
 {
     [DbContext(typeof(PizzaDeliveryDbContext))]
-    [Migration("20211115225314_CreatedAllTables")]
+    [Migration("20211115232958_CreatedAllTables")]
     partial class CreatedAllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,12 @@ namespace PizzaDelivery.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdditionalProductId");
+
+                    b.HasIndex("PizzaId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -112,6 +118,33 @@ namespace PizzaDelivery.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
+                {
+                    b.HasOne("PizzaDelivery.Models.AdditionalProduct", "AdditionalProduct")
+                        .WithMany()
+                        .HasForeignKey("AdditionalProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PizzaDelivery.Models.Pizza", "Pizza")
+                        .WithMany()
+                        .HasForeignKey("PizzaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PizzaDelivery.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AdditionalProduct");
+
+                    b.Navigation("Pizza");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
