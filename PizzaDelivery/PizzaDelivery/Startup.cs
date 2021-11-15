@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PizzaDelivery.Data;
 
 namespace PizzaDelivery
 {
@@ -24,6 +26,8 @@ namespace PizzaDelivery
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<PizzaDBContext>(options =>
+                options.UseNpgsql(@"Host=localhost;Database=PizzaDelivery;Username=dvkruglyak;Password=7f4fm76d5"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
