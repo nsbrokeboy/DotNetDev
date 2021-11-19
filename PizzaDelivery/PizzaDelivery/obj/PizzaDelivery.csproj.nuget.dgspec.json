@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/broke/DotNetDev/PizzaDelivery/PizzaDelivery/PizzaDelivery.csproj": {}
+    "C:\\Users\\Dmitry\\Desktop\\DotNetDev\\PizzaDelivery\\PizzaDelivery\\PizzaDelivery.csproj": {}
   },
   "projects": {
-    "/home/broke/DotNetDev/PizzaDelivery/PizzaDelivery/PizzaDelivery.csproj": {
+    "C:\\Users\\Dmitry\\Desktop\\DotNetDev\\PizzaDelivery\\PizzaDelivery\\PizzaDelivery.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/broke/DotNetDev/PizzaDelivery/PizzaDelivery/PizzaDelivery.csproj",
+        "projectUniqueName": "C:\\Users\\Dmitry\\Desktop\\DotNetDev\\PizzaDelivery\\PizzaDelivery\\PizzaDelivery.csproj",
         "projectName": "PizzaDelivery",
-        "projectPath": "/home/broke/DotNetDev/PizzaDelivery/PizzaDelivery/PizzaDelivery.csproj",
-        "packagesPath": "/home/broke/.nuget/packages/",
-        "outputPath": "/home/broke/DotNetDev/PizzaDelivery/PizzaDelivery/obj/",
+        "projectPath": "C:\\Users\\Dmitry\\Desktop\\DotNetDev\\PizzaDelivery\\PizzaDelivery\\PizzaDelivery.csproj",
+        "packagesPath": "C:\\Users\\Dmitry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dmitry\\Desktop\\DotNetDev\\PizzaDelivery\\PizzaDelivery\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/broke/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Dmitry\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
