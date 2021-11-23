@@ -10,8 +10,8 @@ using PizzaDelivery.Data;
 namespace PizzaDelivery.Migrations
 {
     [DbContext(typeof(PizzaDeliveryDbContext))]
-    [Migration("20211115232958_CreatedAllTables")]
-    partial class CreatedAllTables
+    [Migration("20211123151300_PizzaDelivery")]
+    partial class PizzaDelivery
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,6 @@ namespace PizzaDelivery.Migrations
 
                     b.Property<double>("Cost")
                         .HasColumnType("double precision");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
