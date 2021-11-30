@@ -1,0 +1,38 @@
+@model PizzaDelivery.Models.AllProductsModel
+
+@{
+    ViewBag.Title = "Каталог";
+    Layout = "_Layout";
+}
+
+<h2>Пицца</h2>
+<div class="container">
+<div class="row g-2">
+    @{
+        foreach (var pizza in Model.Pizzas)
+        {
+            <div class="col-6">
+                <div class="p-3 border bg-light"><a asp-controller="Pizza"
+                                                    asp-action="Index"
+                                                    asp-route-id="@pizza.Id">@pizza.Name</a></div>
+            </div>
+        }
+    }
+</div>
+</div>
+
+<h2>Напитки и дополнительные товары</h2>
+<div class="container">
+<div class="row g-2">
+    @{
+        foreach (var product in Model.AdditionalProducts)
+        {
+            <div class="col-6">
+                <div class="p-3 border bg-light"><a asp-controller="AdditionalProduct"
+                                                    asp-action="Index"
+                                                    asp-route-id="@product.Id">@product.Name</a></div>
+            </div>
+        }
+    }
+</div>
+</div>

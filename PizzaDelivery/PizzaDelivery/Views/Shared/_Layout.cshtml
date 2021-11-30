@@ -17,16 +17,13 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-secondary docs-creator">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white docs-creator">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white docs-creator">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white docs-creator">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white docs-creator">About</a></li>
+                <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-secondary docs-creator">Главная</a></li>
+                <li><a asp-controller="Catalog" asp-action="AllProducts" class="nav-link px-2 text-white docs-creator">Каталог</a></li>
             </ul>
             
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <button type="button" class="btn btn-outline-light me-2">Войти</button>
+                <button type="button" class="btn btn-warning">Зарегистрироваться</button>
             </div>
         </div>
     </div>
@@ -39,7 +36,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - PizzaDelivery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2021 - PizzaDelivery
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
