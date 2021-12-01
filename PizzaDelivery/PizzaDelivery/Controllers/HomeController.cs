@@ -15,6 +15,7 @@ namespace PizzaDelivery.Controllers
         {
             return View();
         }
+        
 
         public IActionResult Privacy()
         {
