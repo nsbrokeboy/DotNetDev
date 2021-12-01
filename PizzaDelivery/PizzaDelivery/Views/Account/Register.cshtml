@@ -1,40 +1,48 @@
 ﻿@model PizzaDelivery.ViewModels.RegisterModel
 
-<h2>Регистрация</h2>
- 
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "_Layout";
+}
+
+
 <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
-    <div>
-        <div>
-            <label asp-for="Email">Введите Email</label><br />
-            <input type="text" asp-for="Email" />
+    <div class="w-50 p-3">
+    <br>
+    <h2>Регистрация</h2>
+    <br>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Email"/>
+            <label asp-for="Email" class="form-label">Email</label>
             <span asp-validation-for="Email"></span>
         </div>
-        <div>
-            <label asp-for="Password">Введите пароль</label><br />
-            <input asp-for="Password" />
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="Password"/>
+            <label asp-for="Password" class="form-label">Пароль</label>
             <span asp-validation-for="Password"></span>
         </div>
-        <div>
-            <label asp-for="ConfirmPassword">Повторите пароль</label><br />
-            <input asp-for="ConfirmPassword" />
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="ConfirmPassword"/>
+            <label asp-for="ConfirmPassword" class="form-label">Повторите пароль</label>
             <span asp-validation-for="ConfirmPassword"></span>
         </div>
-        <div>
-            <label asp-for="Name">Ваше имя</label><br />
-            <input type="text" asp-for="Name" />
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Name"/>
+            <label asp-for="Name" class="form-label">Имя</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Surname"/>
+            <label asp-for="Surname">Фамилия</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="date" asp-for="DateOfBirthday"/>
+            <label asp-for="DateOfBirthday">Дата рождения</label>
         </div>
         <div>
-            <label asp-for="Surname">Ваша фамилия</label><br />
-            <input type="text" asp-for="Surname" />
-        </div>
-        <div>
-            <label asp-for="DateOfBirthday">Дата рождения</label><br /> 
-            <input type="date" asp-for="DateOfBirthday" />
+            <input class="btn btn-warning" type="submit" value="Регистрация"/>
         </div>
         <br>
-        <div>
-            <input type="submit" value="Регистрация" />
-        </div>
+        <p class="text-muted">Уже зарегистрированны? <a class="text-reset" asp-action="Login" asp-controller="Account">Войти</a></p>
     </div>
 </form>

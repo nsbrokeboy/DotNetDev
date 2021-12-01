@@ -16,8 +16,8 @@ namespace PizzaDelivery
 {
     public class Startup
     {
-       // private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=dvkruglyak;Password=7f4fm76d5";
-         private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=postgres;Password=Jopa18102001";
+        private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=dvkruglyak;Password=7f4fm76d5";
+         // private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=postgres;Password=Jopa18102001";
         
         public Startup(IConfiguration configuration)
         {
