@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - PizzaDelivery</title>
+    <title>@ViewData["Title"] - PizzaDeliveryп</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
@@ -17,13 +17,23 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-secondary docs-creator">Главная</a></li>
+                <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white docs-creator">Главная</a></li>
                 <li><a asp-controller="Catalog" asp-action="AllProducts" class="nav-link px-2 text-white docs-creator">Каталог</a></li>
             </ul>
             
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Войти</button>
-                <button type="button" class="btn btn-warning">Зарегистрироваться</button>
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login"><button type="button" class="btn btn-outline-light me-2">Войти</button></a>
+                        <a asp-controller="Account" asp-action="Register"><button type="button" class="btn btn-warning">Зарегистрироваться</button></a> 
+                    }
+                }
+                
             </div>
         </div>
     </div>

@@ -8,18 +8,31 @@
         <div>
             <label asp-for="Email">Введите Email</label><br />
             <input type="text" asp-for="Email" />
-            <span asp-validation-for="Email" />
+            <span asp-validation-for="Email"></span>
         </div>
         <div>
             <label asp-for="Password">Введите пароль</label><br />
             <input asp-for="Password" />
-            <span asp-validation-for="Password" />
+            <span asp-validation-for="Password"></span>
         </div>
         <div>
             <label asp-for="ConfirmPassword">Повторите пароль</label><br />
             <input asp-for="ConfirmPassword" />
-            <span asp-validation-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword"></span>
         </div>
+        <div>
+            <label asp-for="Name">Ваше имя</label><br />
+            <input type="text" asp-for="Name" />
+        </div>
+        <div>
+            <label asp-for="Surname">Ваша фамилия</label><br />
+            <input type="text" asp-for="Surname" />
+        </div>
+        <div>
+            <label asp-for="DateOfBirthday">Дата рождения</label><br /> 
+            <input type="date" asp-for="DateOfBirthday" />
+        </div>
+        <br>
         <div>
             <input type="submit" value="Регистрация" />
         </div>

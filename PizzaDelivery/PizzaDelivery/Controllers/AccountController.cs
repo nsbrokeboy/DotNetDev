@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PizzaDelivery.Data;
@@ -55,7 +56,7 @@ namespace PizzaDelivery.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    _db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    _db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name, Surname = model.Surname, DateOfBirthday = model.DateOfBirthday});
                     await _db.SaveChangesAsync();
  
                     await Authenticate(model.Email); // аутентификация
@@ -86,5 +87,11 @@ namespace PizzaDelivery.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
         }
+
+        // [Authorize]
+        // public IActionResult Account()
+        // {
+        //     return ;
+        // }
     }
 }
