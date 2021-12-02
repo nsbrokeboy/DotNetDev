@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PizzaDelivery.Data;
@@ -14,10 +14,10 @@ namespace PizzaDelivery.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly PizzaDeliveryDbContext _db;
+        private readonly PizzaDeliveryDbContext _context;
         public AccountController(PizzaDeliveryDbContext context)
         {
-            _db = context;
+            _context = context;
         }
         [HttpGet]
         public IActionResult Login()
@@ -30,7 +30,7 @@ namespace PizzaDelivery.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -52,19 +52,19 @@ namespace PizzaDelivery.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    _db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name, Surname = model.Surname, DateOfBirthday = model.DateOfBirthday});
-                    await _db.SaveChangesAsync();
+                    _context.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name, Surname = model.Surname, DateOfBirthday = model.DateOfBirthday});
+                    await _context.SaveChangesAsync();
  
                     await Authenticate(model.Email); // аутентификация
  
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
         }
@@ -87,11 +87,17 @@ namespace PizzaDelivery.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
+        
+        public IActionResult Account()
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
 
-        // [Authorize]
-        // public IActionResult Account()
-        // {
-        //     return ;
-        // }
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+            return View(user);
+        }
     }
 }

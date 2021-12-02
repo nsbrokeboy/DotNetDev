@@ -30,7 +30,7 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        <a style="color:#ffffff; text-decoration:none">@User.Identity.Name&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a asp-controller="Account" asp-action="Account" style="color:#ffffff; text-decoration:none">@User.Identity.Name&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <a asp-controller="Account" asp-action="Logout"><button type="button" class="btn btn-outline-light me-2">Выйти</button></a>
                     }
                     else
