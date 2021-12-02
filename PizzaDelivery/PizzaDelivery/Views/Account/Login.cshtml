@@ -14,13 +14,13 @@
         <h2>Вход на сайт</h2>
         <br>
         <div class="form-floating mb-3">
-            <input class="form-control" type="text" asp-for="Email"/>
-            <label asp-for="Email">Email</label>
+            <input type="email" class="form-control" asp-for="Email" id="floatingInput" placeholder="name@example.com"/>
+            <label for="floatingInput" asp-for="Email">Email</label>
             <span asp-validation-for="Email"/>
         </div>
         <div class="form-floating mb-3">
-            <input class="form-control" asp-for="Password"/>
-            <label asp-for="Password">Пароль</label>
+            <input class="form-control" asp-for="Password" id="floatingInput" placeholder="password"/>
+            <label for="floatingInput" asp-for="Password">Пароль</label>
             <span asp-validation-for="Password"/>
         </div>
         <div class="form-group">

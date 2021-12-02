@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
+<style>
+    .non-underline-link{
+       text-decoration: none !important;
+       color: white;
+    }
+</style>
 <body>
 <header class="p-2 bg-dark text-white">
     <div class="container">
@@ -24,6 +30,7 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
+                        <a style="color:#ffffff; text-decoration:none">@User.Identity.Name&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <a asp-controller="Account" asp-action="Logout"><button type="button" class="btn btn-outline-light me-2">Выйти</button></a>
                     }
                     else
