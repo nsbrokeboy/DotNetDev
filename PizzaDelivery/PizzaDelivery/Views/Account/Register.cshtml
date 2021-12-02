@@ -1,0 +1,48 @@
+﻿@model PizzaDelivery.ViewModels.RegisterModel
+
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "_Layout";
+}
+
+
+<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="w-50 p-3">
+    <br>
+    <h2>Регистрация</h2>
+    <br>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Email" id="floatingInput" placeholder="name@example.com"/>
+            <label for="floatingInput" asp-for="Email" class="form-label">Email</label>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="Password" id="floatingInput" placeholder="password"/>
+            <label for="floatingInput" asp-for="Password" class="form-label">Пароль</label>
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="ConfirmPassword" id="floatingInput" placeholder="password"/>
+            <label for="floatingInput" asp-for="ConfirmPassword" class="form-label">Повторите пароль</label>
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Name" id="floatingInput" placeholder="name"/>
+            <label for="floatingInput" asp-for="Name" class="form-label">Имя</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" asp-for="Surname" id="floatingInput" placeholder="surname"/>
+            <label for="floatingInput" asp-for="Surname">Фамилия</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="date" asp-for="DateOfBirthday" id="floatingInput" placeholder="date"/>
+            <label for="floatingInput" asp-for="DateOfBirthday">Дата рождения</label>
+        </div>
+        <div>
+            <input class="btn btn-warning" type="submit" value="Регистрация"/>
+        </div>
+        <br>
+        <p class="text-muted">Уже зарегистрированны? <a class="text-reset" asp-action="Login" asp-controller="Account">Войти</a></p>
+    </div>
+</form>
