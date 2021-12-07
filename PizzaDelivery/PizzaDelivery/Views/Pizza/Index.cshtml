@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Http.Extensions
 @model PizzaDelivery.Models.Pizza
 
 @{
@@ -9,4 +10,4 @@
 <p>@Model.Description</p>
 <p>@Model.Cost</p>
 
-<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id">Добавить в корзину</a>
+<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-url="@Context.Request.GetEncodedUrl()">Добавить в корзину</a>

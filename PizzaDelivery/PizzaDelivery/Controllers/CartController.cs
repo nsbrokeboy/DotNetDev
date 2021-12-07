@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using PizzaDelivery.Logic;
 using PizzaDelivery.Models;
@@ -13,9 +14,11 @@ namespace PizzaDelivery.Controllers
             _actions = actions;
         }
 
-        public void AddToCart(int id)
+        public IActionResult AddToCart(int id, string url)
         {
             _actions.AddToCart(id);
+            
+            return Redirect(url);
         }
 
         public IActionResult Cart()

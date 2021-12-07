@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
-<style>
-    .non-underline-link{
-       text-decoration: none !important;
-       color: white;
-    }
-</style>
+
+@* <style> *@
+@*     .a-for-layout{ *@
+@*         color:#ffffff; *@
+@*         text-decoration:none !important;  *@
+@*         margin-right: 30px; *@
+@*     } *@
+@* </style> *@
+
 <body>
 <header class="p-2 bg-dark text-white">
     <div class="container">
@@ -25,12 +28,14 @@
                 <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white docs-creator">Главная</a></li>
                 <li><a asp-controller="Catalog" asp-action="AllProducts" class="nav-link px-2 text-white docs-creator">Каталог</a></li>
             </ul>
+           
             
             <div class="text-end">
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Account" asp-action="Account" style="color:#ffffff; text-decoration:none">@User.Identity.Name&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a style="color:#ffffff; text-decoration:none; margin-right: 30px;" asp-controller="Cart" asp-action="Cart">Корзина</a>
+                        <a style="color:#ffffff; text-decoration:none; margin-right: 30px;" asp-controller="Account" asp-action="Account">Профиль</a>
                         <a asp-controller="Account" asp-action="Logout"><button type="button" class="btn btn-outline-light me-2">Выйти</button></a>
                     }
                     else
