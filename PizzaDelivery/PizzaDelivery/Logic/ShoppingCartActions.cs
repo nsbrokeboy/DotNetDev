@@ -139,7 +139,7 @@ namespace PizzaDelivery.Logic
         public decimal GetTotal()
         {
             ShoppingCartId = GetCartId();
-            decimal? total = decimal.Zero;
+            decimal? total;
             total = (decimal?) (from cartItems in _context.ShoppingCartItems
                 where cartItems.CartId == ShoppingCartId
                 select (int?) cartItems.Quantity *
@@ -151,6 +151,8 @@ namespace PizzaDelivery.Logic
         {
             ShoppingCartId = GetCartId();
             _context.ShoppingCartItems.RemoveRange(_context.ShoppingCartItems.Where(i => i.CartId == ShoppingCartId));
+            
+            _context.SaveChanges();
         }
     }
 }

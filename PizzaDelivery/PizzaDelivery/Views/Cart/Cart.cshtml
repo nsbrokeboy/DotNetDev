@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Http.Extensions
 @model System.Collections.Generic.List<PizzaDelivery.Models.CartItem>
 
 @{
@@ -15,6 +16,7 @@
             {
                 <p>@item.Product.Name</p>
             }
+            <a asp-controller="Cart" asp-action="RemoveAll" asp-route-url="@Context.Request.GetEncodedUrl()">Отчистить корзину</a>
         }
     </div>
 </div>

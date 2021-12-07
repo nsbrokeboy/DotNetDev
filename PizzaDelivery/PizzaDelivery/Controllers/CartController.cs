@@ -26,27 +26,27 @@ namespace PizzaDelivery.Controllers
             return View(_actions.GetCartItems());
         }
 
-        public IActionResult IncreaseQuantity(int id)
+        public IActionResult IncreaseQuantity(int id, string url)
         {
             _actions.ChangeQuantity(id,1);
-            return View("Cart");
+            return Redirect(url);
         }
-        public IActionResult DecreaseQuantity(int id)
+        public IActionResult DecreaseQuantity(int id, string url)
         {
             _actions.ChangeQuantity(id,-1);
-            return View("Cart");
+            return Redirect(url);
         }
 
-        public IActionResult Remove(int id)
+        public IActionResult Remove(int id, string url)
         {
             _actions.RemoveFromCart(id);
-            return View("Cart");
+            return Redirect(url);
         }
 
-        public IActionResult RemoveAll()
+        public IActionResult RemoveAll(string url)
         {
             _actions.RemoveAllPositions();
-            return View("Cart");
+            return Redirect(url);
         }
 
 
