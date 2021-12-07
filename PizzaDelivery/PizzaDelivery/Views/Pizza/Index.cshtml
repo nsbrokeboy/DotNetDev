@@ -1,4 +1,4 @@
-@model PizzaDelivery.Models.Pizza?
+@model PizzaDelivery.Models.Pizza
 
 @{
     ViewBag.Title = Model.Name;
@@ -8,3 +8,5 @@
 <h2>@Model.Name</h2>
 <p>@Model.Description</p>
 <p>@Model.Cost</p>
+
+<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id">Добавить в корзину</a>

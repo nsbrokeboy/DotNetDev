@@ -13,6 +13,7 @@ namespace PizzaDelivery.Data
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<AdditionalProduct> AdditionalProducts { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        
+        public DbSet<CartItem> ShoppingCartItems { get; set; }
     }
 }
