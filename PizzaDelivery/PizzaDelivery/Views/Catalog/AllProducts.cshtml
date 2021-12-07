@@ -19,7 +19,7 @@
                         <a style="color:black; position: relative; left: 10px" asp-controller="Pizza" asp-action="Index" asp-route-id="@pizza.Id">@pizza.Name</a>
                         <p style="color: #232020; position: relative; left: 10px">@pizza.Description</p>
                         <div style="position:absolute; bottom:10px;">
-                            <h4 style="position: relative; left: 10px;"><span class="badge bg-secondary">@pizza.Cost ₽</span></h4>
+                            <h4 style="position: relative; left: 10px;"><span class="badge rounded-pill bg-warning text-dark">@pizza.Cost ₽</span></h4>
                             <a style="position: relative; left: 10px;" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@pizza.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
                                 <button type="button" class="btn btn-warning">В корзину</button>
                             </a>
@@ -45,7 +45,7 @@
                 <div>
                     <a style="color:black; position: relative; left: 10px" asp-controller="AdditionalProduct" asp-action="Index" asp-route-id="@product.Id">@product.Name</a>
                     <div style="position:absolute; bottom:10px;">
-                        <h4 style="position: relative; left: 10px;"><span class="badge bg-secondary">@product.Cost ₽</span></h4>
+                        <h4 style="position: relative; left: 10px;"><span class="badge rounded-pill bg-warning text-dark">@product.Cost ₽</span></h4>
                         <a style="position: relative; left: 10px" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
                             <button type="button" class="btn btn-warning">В корзину</button>
                         </a>

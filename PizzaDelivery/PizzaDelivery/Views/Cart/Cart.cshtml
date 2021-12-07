@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Http.Extensions
+@using PizzaDelivery.Controllers
 @model System.Collections.Generic.List<PizzaDelivery.Models.CartItem>
 
 @{
@@ -9,17 +10,85 @@
 <br>
 <h2>Корзина</h2>
 <br>
-<div class="div-outline">
-    <div>
-        @{
-            foreach (var item in Model)
-            {
-                <p>@item.Product.Name</p>
-            }
-            <a asp-controller="Cart" asp-action="RemoveAll" asp-route-url="@Context.Request.GetEncodedUrl()">Отчистить корзину</a>
-        }
-    </div>
-</div>
 
+
+<div class="container">
+<div class="row g-2">
+<a asp-controller="Cart" asp-action="RemoveAll" asp-route-url="@Context.Request.GetEncodedUrl()">
+    <button type="button" class="btn btn-dark">Отчистить корзину</button>
+</a>
+<br>
+@{
+    foreach (var cartItem in Model)
+    {
+        var summaryCost = cartItem.Quantity * cartItem.Product.Cost;
+
+        if (cartItem.Product.GetType() == typeof(Pizza))
+        {
+            <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                <img src="../imgs/@{@cartItem.ProductId}.jpeg" width="150" height="150" alt="...">
+                <div>
+                    <a style="color:black; position: relative; left: 10px;" 
+                       asp-controller="Pizza" asp-action="Index" asp-route-id="@cartItem.ProductId">@cartItem.Product.Name
+                    </a>
+                    <br>
+                    <div>
+                        <p style="color: #232020; position: relative; left: 10px">Цена: @cartItem.Product.Cost ₽</p>
+                        <div style="position: relative; left: 10px" class="btn-group" role="group">
+                            <p>Количество: @cartItem.Quantity</p>
+                            <a style="position: relative; left: 30px" class="btn btn-secondary btn-sm" 
+                               asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@cartItem.ProductId" 
+                               asp-route-url="@Context.Request.GetEncodedUrl()">+</a>
+                            <a style="position: relative; left: 30px" class="btn btn-danger btn-sm" 
+                               asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@cartItem.ProductId" 
+                               asp-route-url="@Context.Request.GetEncodedUrl()">-</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="position:absolute; bottom:10px;">
+                        <h6 style="position: relative; left: 10px;">
+                            Стоимость: <span style="font-size: 110%" class="badge rounded-pill bg-warning text-dark">@summaryCost ₽</span>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                <img src="../imgs/@{@cartItem.ProductId}.jpeg" width="150" height="150" alt="...">
+                <div>
+                    <a style="color:black; position: relative; left: 10px;" 
+                       asp-controller="AdditionalProduct" asp-action="Index" asp-route-id="@cartItem.ProductId">@cartItem.Product.Name
+                    </a>
+                    <br>
+                    <div>
+                        <p style="color: #232020; position: relative; left: 10px">Цена: @cartItem.Product.Cost ₽</p>
+                        <div style="position: relative; left: 10px" class="btn-group" role="group">
+                            <p>Количество: @cartItem.Quantity</p>
+                            <a style="position: relative; left: 30px" class="btn btn-secondary btn-sm" 
+                               asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@cartItem.ProductId" 
+                               asp-route-url="@Context.Request.GetEncodedUrl()">+</a>
+                            <a style="position: relative; left: 30px" class="btn btn-danger btn-sm" 
+                               asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@cartItem.ProductId" 
+                               asp-route-url="@Context.Request.GetEncodedUrl()">-</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="position:absolute; bottom:10px;">
+                        <h6 style="position: relative; left: 10px;">
+                            Стоимость: <span style="font-size: 110%" class="badge rounded-pill bg-warning text-dark">@summaryCost ₽</span>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        
+    }
+}
+<h3>Итого: </h3>
+</div>
+</div>
 
 
