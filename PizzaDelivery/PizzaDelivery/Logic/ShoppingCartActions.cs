@@ -7,11 +7,10 @@ using PizzaDelivery.Models;
 
 namespace PizzaDelivery.Logic
 {
-    public class ShoppingCartActions : IDisposable
+    public class ShoppingCartActions
     {
         private readonly PizzaDeliveryDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ISession _session;
 
         public ShoppingCartActions(PizzaDeliveryDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -92,15 +91,6 @@ namespace PizzaDelivery.Logic
             else
             {
                 _context.SaveChanges();
-            }
-        }
-
-
-        public void Dispose()
-        {
-            if (_context != null)
-            {
-                _context.Dispose();
             }
         }
 

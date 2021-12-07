@@ -1,36 +1,56 @@
+@using Microsoft.AspNetCore.Http.Extensions
 @model PizzaDelivery.Models.AllProductsModel
 
 @{
     ViewBag.Title = "Каталог";
     Layout = "_Layout";
 }
-
+<br>
 <h2>Пицца</h2>
+<br>
 <div class="container">
-<div class="row g-2">
-    @{
-        foreach (var pizza in Model.Pizzas)
-        {
-            <div class="col-6">
-                <div class="p-3 border bg-light"><a asp-controller="Pizza"
-                                                    asp-action="Index"
-                                                    asp-route-id="@pizza.Id">@pizza.Name</a></div>
-            </div>
+    <div class="row g-2">
+        @{
+            foreach (var pizza in Model.Pizzas)
+            {
+                <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                    <img src="../imgs/@{@pizza.Id}.jpeg" width="150" height="150" alt="...">
+                    <div>
+                        <a style="color:black; position: relative; left: 10px" asp-controller="Pizza" asp-action="Index" asp-route-id="@pizza.Id">@pizza.Name</a>
+                        <p style="color: #232020; position: relative; left: 10px">@pizza.Description</p>
+                        <div style="position:absolute; bottom:10px;">
+                            <h4 style="position: relative; left: 10px;"><span class="badge bg-secondary">@pizza.Cost ₽</span></h4>
+                            <a style="position: relative; left: 10px;" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@pizza.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
+                                <button type="button" class="btn btn-warning">В корзину</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         }
-    }
+    </div>
 </div>
-</div>
+<br>
 
+<br>
 <h2>Напитки и дополнительные товары</h2>
+<br>
 <div class="container">
 <div class="row g-2">
     @{
         foreach (var product in Model.AdditionalProducts)
         {
-            <div class="col-6">
-                <div class="p-3 border bg-light"><a asp-controller="AdditionalProduct"
-                                                    asp-action="Index"
-                                                    asp-route-id="@product.Id">@product.Name</a></div>
+            <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                <img src="../imgs/@{@product.Id}.jpeg" width="150" height="150" alt="...">
+                <div>
+                    <a style="color:black; position: relative; left: 10px" asp-controller="AdditionalProduct" asp-action="Index" asp-route-id="@product.Id">@product.Name</a>
+                    <div style="position:absolute; bottom:10px;">
+                        <h4 style="position: relative; left: 10px;"><span class="badge bg-secondary">@product.Cost ₽</span></h4>
+                        <a style="position: relative; left: 10px" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
+                            <button type="button" class="btn btn-warning">В корзину</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         }
     }
