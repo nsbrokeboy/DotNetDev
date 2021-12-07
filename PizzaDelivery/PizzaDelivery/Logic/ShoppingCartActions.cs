@@ -10,7 +10,7 @@ namespace PizzaDelivery.Logic
     public class ShoppingCartActions : IDisposable
     {
         private readonly PizzaDeliveryDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;    
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISession _session;
 
         public ShoppingCartActions(PizzaDeliveryDbContext context, IHttpContextAccessor httpContextAccessor)
@@ -20,7 +20,7 @@ namespace PizzaDelivery.Logic
         }
 
         public string ShoppingCartId { get; set; }
-        
+
         public const string CartSessionKey = "CartId";
 
         public void AddToCart(int id)
@@ -30,7 +30,7 @@ namespace PizzaDelivery.Logic
             var cartItem = _context.ShoppingCartItems.SingleOrDefault(
                 c => c.CartId == ShoppingCartId
                      && c.ProductId == id);
-            
+
             if (cartItem == null)
             {
                 if (_context.Pizzas.Any(p => p.Id == id))
@@ -56,8 +56,7 @@ namespace PizzaDelivery.Logic
                         Quantity = 1,
                     };
                 }
-                
-                
+
 
                 _context.ShoppingCartItems.Add(cartItem);
             }
@@ -65,10 +64,38 @@ namespace PizzaDelivery.Logic
             {
                 cartItem.Quantity++;
             }
-            
+
             _context.SaveChanges();
         }
-        
+
+        public void RemoveFromCart(int id)
+        {
+            ShoppingCartId = GetCartId();
+            _context.ShoppingCartItems.Remove(_context.ShoppingCartItems.FirstOrDefault(
+                c => c.CartId == ShoppingCartId && c.ProductId == id));
+
+            _context.SaveChanges();
+        }
+
+        public void ChangeQuantity(int id, int dif)
+        {
+            ShoppingCartId = GetCartId();
+            var item = _context.ShoppingCartItems.FirstOrDefault(
+                c => c.CartId == ShoppingCartId && c.ProductId == id);
+
+            item.Quantity += dif;
+
+            if (item.Quantity <= 0)
+            {
+                RemoveFromCart(id);
+            }
+            else
+            {
+                _context.SaveChanges();
+            }
+        }
+
+
         public void Dispose()
         {
             if (_context != null)
@@ -76,7 +103,7 @@ namespace PizzaDelivery.Logic
                 _context.Dispose();
             }
         }
-        
+
         public string GetCartId()
         {
             if (_httpContextAccessor.HttpContext.Session.GetString("CartSessionKey") == null)
@@ -84,7 +111,8 @@ namespace PizzaDelivery.Logic
                 if (!string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.User.Identity.Name))
                 {
                     // возможно, нужно делать через _httpContextAccessor
-                    _httpContextAccessor.HttpContext.Session.SetString(CartSessionKey, _httpContextAccessor.HttpContext.User.Identity.Name);
+                    _httpContextAccessor.HttpContext.Session.SetString(CartSessionKey,
+                        _httpContextAccessor.HttpContext.User.Identity.Name);
                 }
                 else
                 {
@@ -92,9 +120,10 @@ namespace PizzaDelivery.Logic
                     _httpContextAccessor.HttpContext.Session.SetString(CartSessionKey, tempCartId.ToString());
                 }
             }
+
             return _httpContextAccessor.HttpContext.Session.GetString(CartSessionKey);
         }
-        
+
         public List<CartItem> GetCartItems()
         {
             ShoppingCartId = GetCartId();
@@ -115,6 +144,23 @@ namespace PizzaDelivery.Logic
             }
 
             return cart;
+        }
+
+        public decimal GetTotal()
+        {
+            ShoppingCartId = GetCartId();
+            decimal? total = decimal.Zero;
+            total = (decimal?) (from cartItems in _context.ShoppingCartItems
+                where cartItems.CartId == ShoppingCartId
+                select (int?) cartItems.Quantity *
+                       cartItems.Product.Cost).Sum();
+            return total ?? decimal.Zero;
+        }
+
+        public void RemoveAllPositions()
+        {
+            ShoppingCartId = GetCartId();
+            _context.ShoppingCartItems.RemoveRange(_context.ShoppingCartItems.Where(i => i.CartId == ShoppingCartId));
         }
     }
 }
