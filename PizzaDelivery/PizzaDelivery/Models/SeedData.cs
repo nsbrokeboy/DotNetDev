@@ -26,7 +26,7 @@ public static class SeedData
                 Name = "Пепперони",
                 Cost = 349,
                 Weight = 520,
-                Description = @"Пикантная пепперони, увеличенная порция моцареллы,томаты, томатный соус"
+                Description = @"Пикантная пепперони, увеличенная порция моцареллы, томаты, томатный соус"
             },
             new Pizza()
             {
@@ -82,7 +82,7 @@ public static class SeedData
                 Name = "Четыре сезона",
                 Cost = 399,
                 Weight = 680,
-                Description = @"Увеличенная порция моцареллы, ветчина, пикантная пепперони, кубики брынзы, томаты, шампиньоны, итальянские травы, томатный соус"
+                Description = @"Увеличенная порция моцареллы, ветчина, пикантная пепперони, кубики брынзы, томаты, шампиньоны, томатный соус"
             });
         
         if (PizzaDeliveryDbContext == null || PizzaDeliveryDbContext.AdditionalProducts == null)
