@@ -136,17 +136,6 @@ namespace PizzaDelivery.Logic
             return cart;
         }
 
-        public decimal GetTotal()
-        {
-            ShoppingCartId = GetCartId();
-            decimal? total;
-            total = (decimal?) (from cartItems in _context.ShoppingCartItems
-                where cartItems.CartId == ShoppingCartId
-                select (int?) cartItems.Quantity *
-                       cartItems.Product.Cost).Sum();
-            return total ?? decimal.Zero;
-        }
-
         public void RemoveAllPositions()
         {
             ShoppingCartId = GetCartId();
