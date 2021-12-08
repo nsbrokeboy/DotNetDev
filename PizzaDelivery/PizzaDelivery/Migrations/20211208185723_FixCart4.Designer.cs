@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PizzaDelivery.Data;
@@ -9,9 +10,10 @@ using PizzaDelivery.Data;
 namespace PizzaDelivery.Migrations
 {
     [DbContext(typeof(PizzaDeliveryDbContext))]
-    partial class PizzaDeliveryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208185723_FixCart4")]
+    partial class FixCart4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,19 +52,15 @@ namespace PizzaDelivery.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
+                    b.Property<string>("CartItemId")
+                        .HasColumnType("text");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CartItemId");
 
                     b.ToTable("Orders");
                 });
@@ -147,6 +145,15 @@ namespace PizzaDelivery.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
+                {
+                    b.HasOne("PizzaDelivery.Models.CartItem", "CartItem")
+                        .WithMany()
+                        .HasForeignKey("CartItemId");
+
+                    b.Navigation("CartItem");
                 });
 #pragma warning restore 612, 618
         }

@@ -150,16 +150,18 @@ namespace PizzaDelivery.Logic
             ShoppingCartId = GetCartId();
             var cart = GetCartItems();
 
-            if (_context.Orders.Any(o => o.CartItem.CartId == ShoppingCartId))
+            if (_context.Orders.Any(o => o.Username == ShoppingCartId))
             {
                 int orderId = _context.Orders.OrderBy(o => o.OrderId)
-                    .LastOrDefault(o => o.CartItem.CartId == ShoppingCartId).OrderId;
+                    .LastOrDefault(o => o.Username == ShoppingCartId).OrderId;
+                
                 foreach (var item in cart)
                 {
                     _context.Orders.Add(new Order()
                     {
-                        CartItem = item,
-                        CartItemId = item.CartItemId,
+                        Username = item.CartId,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
                         OrderId = orderId + 1
                     });
                 }
@@ -170,8 +172,9 @@ namespace PizzaDelivery.Logic
                 {
                     var order = new Order()
                     {
-                        CartItem = item,
-                        CartItemId = item.CartItemId,
+                        Username = item.CartId,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
                         OrderId = 1
                     };
                     
@@ -184,7 +187,8 @@ namespace PizzaDelivery.Logic
 
         public IEnumerable<Order> GetOrders()
         {
-            return _context.Orders.Where(o => o.CartItem.CartId == ShoppingCartId).ToList();
+            ShoppingCartId = GetCartId();
+            return _context.Orders.Where(o => o.Username == ShoppingCartId).ToList();
         }
     }
 }

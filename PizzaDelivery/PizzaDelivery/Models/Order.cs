@@ -9,13 +9,13 @@ namespace PizzaDelivery.Models
         public int Id { get; set; }
 
         public int OrderId { get; set; }
+        
+        public string Username { get; set; }
 
-        [NotNull]
-        public CartItem CartItem { get; set; }
-        
-        [NotNull]
-        public string CartItemId { get; set; }
-        
+        public int ProductId { get; set; }
+
+        public int Quantity { get; set; }
+
         public string Address { get; set; }
         
     }

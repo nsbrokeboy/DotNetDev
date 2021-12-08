@@ -5,8 +5,14 @@
     ViewBag.Title = Model.Name;
     Layout = "_Layout";
 }
-
+<br>
 <h2>@Model.Name</h2>
-<p>@Model.Cost</p>
+<br>
+<img src="../imgs/@{@Model.Id}.jpeg" width="292" height="292">
+<h3>
+    <span class="badge rounded-pill bg-warning text-dark">@Model.Cost ₽</span>
+</h3>
 
-<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-url="@Context.Request.GetEncodedUrl()">Добавить в корзину</a>
+<a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
+    <button type="button" class="btn btn-warning">В корзину</button>
+</a>
