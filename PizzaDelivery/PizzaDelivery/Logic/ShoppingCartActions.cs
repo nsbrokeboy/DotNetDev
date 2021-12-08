@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -154,7 +155,7 @@ namespace PizzaDelivery.Logic
             {
                 int orderId = _context.Orders.OrderBy(o => o.OrderId)
                     .LastOrDefault(o => o.Username == ShoppingCartId).OrderId;
-                
+
                 foreach (var item in cart)
                 {
                     _context.Orders.Add(new Order()
@@ -177,18 +178,32 @@ namespace PizzaDelivery.Logic
                         Quantity = item.Quantity,
                         OrderId = 1
                     };
-                    
+
                     _context.Orders.Add(order);
                 }
             }
 
             _context.SaveChanges();
         }
-
-        public IEnumerable<Order> GetOrders()
-        {
-            ShoppingCartId = GetCartId();
-            return _context.Orders.Where(o => o.Username == ShoppingCartId).ToList();
-        }
+        
+        // coming soon...
+        
+        // public IList GetOrders()
+        // {
+        //     List<(Product, int)> productsWithQuantity = new List<(Product, int)>();
+        //     List<List<(Product, int)>> ordersByUser = new List<List<(Product, int)>>();
+        //
+        //     ShoppingCartId = GetCartId();
+        //     var orders = _context.Orders.Where(o => o.Username == ShoppingCartId).ToList();
+        //     foreach (var item in orders)
+        //     {
+        //         var product = (Product) _context.Pizzas.FirstOrDefault(p => p.Id == item.ProductId) ??
+        //                       _context.AdditionalProducts.FirstOrDefault(p => p.Id == item.ProductId);
+        //
+        //         productsWithQuantity.Add((product, item.Quantity));
+        //     }
+        //
+        //     return ordersByUser;
+        // }
     }
 }

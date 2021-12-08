@@ -5,8 +5,7 @@ namespace PizzaDelivery.ViewModels
 {
     public class RegisterModel
     {
-        [Required(ErrorMessage ="Не указан Email")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [EmailAddress(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
          
         [Required(ErrorMessage = "Не указан пароль")]
@@ -14,7 +13,7 @@ namespace PizzaDelivery.ViewModels
         public string Password { get; set; }
          
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Пароль введен неверно")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
         
         public string Name { get; set; }
@@ -22,6 +21,7 @@ namespace PizzaDelivery.ViewModels
         public string Surname { get; set; }
         
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Не указана дата рождения")]
         public DateTime DateOfBirthday { get; set; }
     }
 }
