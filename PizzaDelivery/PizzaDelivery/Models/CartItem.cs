@@ -5,7 +5,7 @@ namespace PizzaDelivery.Models
     public class CartItem
     {
         [Key]
-        public string ItemId { get; set; }
+        public string CartItemId { get; set; }
 
         public string CartId { get; set; }
 

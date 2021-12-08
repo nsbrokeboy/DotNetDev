@@ -21,7 +21,7 @@ namespace PizzaDelivery.Migrations
 
             modelBuilder.Entity("PizzaDelivery.Models.CartItem", b =>
                 {
-                    b.Property<string>("ItemId")
+                    b.Property<string>("CartItemId")
                         .HasColumnType("text");
 
                     b.Property<string>("CartId")
@@ -33,7 +33,7 @@ namespace PizzaDelivery.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.HasKey("ItemId");
+                    b.HasKey("CartItemId");
 
                     b.HasIndex("ProductId");
 
@@ -50,7 +50,7 @@ namespace PizzaDelivery.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<string>("ItemId")
+                    b.Property<string>("CartItemId")
                         .HasColumnType("text");
 
                     b.Property<int>("OrderId")
@@ -58,7 +58,7 @@ namespace PizzaDelivery.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("CartItemId");
 
                     b.ToTable("Orders");
                 });
@@ -147,11 +147,11 @@ namespace PizzaDelivery.Migrations
 
             modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
                 {
-                    b.HasOne("PizzaDelivery.Models.CartItem", "Item")
+                    b.HasOne("PizzaDelivery.Models.CartItem", "CartItem")
                         .WithMany()
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("CartItemId");
 
-                    b.Navigation("Item");
+                    b.Navigation("CartItem");
                 });
 #pragma warning restore 612, 618
         }

@@ -38,7 +38,7 @@ namespace PizzaDelivery.Logic
                     // Create a new cart item if no cart item exists.                 
                     cartItem = new CartItem
                     {
-                        ItemId = Guid.NewGuid().ToString(),
+                        CartItemId = Guid.NewGuid().ToString(),
                         ProductId = id,
                         CartId = ShoppingCartId,
                         Product = _context.Pizzas.FirstOrDefault(p => p.Id == id),
@@ -49,7 +49,7 @@ namespace PizzaDelivery.Logic
                 {
                     cartItem = new CartItem
                     {
-                        ItemId = Guid.NewGuid().ToString(),
+                        CartItemId = Guid.NewGuid().ToString(),
                         ProductId = id,
                         CartId = ShoppingCartId,
                         Product = _context.AdditionalProducts.FirstOrDefault(p => p.Id == id),
@@ -150,35 +150,41 @@ namespace PizzaDelivery.Logic
             ShoppingCartId = GetCartId();
             var cart = GetCartItems();
 
-            if (_context.Orders.Any(o => o.Item.CartId == ShoppingCartId))
+            if (_context.Orders.Any(o => o.CartItem.CartId == ShoppingCartId))
             {
+                int orderId = _context.Orders.OrderBy(o => o.OrderId)
+                    .LastOrDefault(o => o.CartItem.CartId == ShoppingCartId).OrderId;
                 foreach (var item in cart)
                 {
                     _context.Orders.Add(new Order()
                     {
-                        Item = item,
-                        OrderId = 1
+                        CartItem = item,
+                        CartItemId = item.CartItemId,
+                        OrderId = orderId + 1
                     });
                 }
             }
             else
             {
-                int orderId = _context.Orders.OrderBy(o => o.OrderId)
-                    .LastOrDefault(o => o.Item.CartId == ShoppingCartId).OrderId;
                 foreach (var item in cart)
                 {
-                    _context.Orders.Add(new Order()
+                    var order = new Order()
                     {
-                        Item = item,
-                        OrderId = orderId + 1
-                    });
+                        CartItem = item,
+                        CartItemId = item.CartItemId,
+                        OrderId = 1
+                    };
+                    
+                    _context.Orders.Add(order);
                 }
             }
+
+            _context.SaveChanges();
         }
 
         public IEnumerable<Order> GetOrders()
         {
-            return _context.Orders.Where(o => o.Item.CartId == ShoppingCartId).ToList();
+            return _context.Orders.Where(o => o.CartItem.CartId == ShoppingCartId).ToList();
         }
     }
 }

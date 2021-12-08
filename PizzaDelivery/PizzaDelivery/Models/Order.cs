@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PizzaDelivery.Models
 {
@@ -9,7 +10,11 @@ namespace PizzaDelivery.Models
 
         public int OrderId { get; set; }
 
-        public CartItem Item { get; set; }
+        [NotNull]
+        public CartItem CartItem { get; set; }
+        
+        [NotNull]
+        public string CartItemId { get; set; }
         
         public string Address { get; set; }
         

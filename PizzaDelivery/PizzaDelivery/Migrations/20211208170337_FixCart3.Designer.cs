@@ -10,8 +10,8 @@ using PizzaDelivery.Data;
 namespace PizzaDelivery.Migrations
 {
     [DbContext(typeof(PizzaDeliveryDbContext))]
-    [Migration("20211207135840_CartMigration")]
-    partial class CartMigration
+    [Migration("20211208170337_FixCart3")]
+    partial class FixCart3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace PizzaDelivery.Migrations
 
             modelBuilder.Entity("PizzaDelivery.Models.CartItem", b =>
                 {
-                    b.Property<string>("ItemId")
+                    b.Property<string>("CartItemId")
                         .HasColumnType("text");
 
                     b.Property<string>("CartId")
@@ -35,11 +35,34 @@ namespace PizzaDelivery.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.HasKey("ItemId");
+                    b.HasKey("CartItemId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCartItems");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CartItemId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartItemId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("PizzaDelivery.Models.Product", b =>
@@ -122,6 +145,15 @@ namespace PizzaDelivery.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
+                {
+                    b.HasOne("PizzaDelivery.Models.CartItem", "CartItem")
+                        .WithMany()
+                        .HasForeignKey("CartItemId");
+
+                    b.Navigation("CartItem");
                 });
 #pragma warning restore 612, 618
         }
