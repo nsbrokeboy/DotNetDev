@@ -6,22 +6,23 @@
 }
 
 
+<br>
+    <h2>Вход на сайт</h2>
+<br>
 
 <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div class="w-50 p-3">
-        <br>
-        <h2>Вход на сайт</h2>
-        <br>
+        
         <div class="form-floating mb-3">
             <input type="email" class="form-control" asp-for="Email" id="floatingInput" placeholder="name@example.com"/>
             <label for="floatingInput" asp-for="Email">Email</label>
-            <span asp-validation-for="Email"/>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="Email"></span>
         </div>
         <div class="form-floating mb-3">
             <input class="form-control" asp-for="Password" id="floatingInput" placeholder="password"/>
             <label for="floatingInput" asp-for="Password">Пароль</label>
-            <span asp-validation-for="Password"/>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="Password"></span>
         </div>
         <div class="form-group">
             <input type="submit" value="Войти" class="btn btn-warning"/>

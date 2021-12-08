@@ -5,19 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using PizzaDelivery.Data;
+using PizzaDelivery.Logic;
 
 namespace PizzaDelivery
 {
     public class Startup
     {
         private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=dvkruglyak;Password=7f4fm76d5";
-         // private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=postgres;Password=Jopa18102001";
+        // private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=postgres;Password=Jopa18102001";
         
         public Startup(IConfiguration configuration)
         {
@@ -25,20 +28,33 @@ namespace PizzaDelivery
         }
 
         public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddTransient<ShoppingCartActions>();
+            
             services.AddDbContext<PizzaDeliveryDbContext>(options =>
                 options.UseNpgsql(connectionString));
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.LoginPath = new PathString("/Account/Login");
                 });
-            services.AddControllersWithViews();
+
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
+            services.AddSession();
+            
+            // services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Session);
+            // services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // services.AddScoped<ShoppingCartActions>();
+            // services.AddControllersWithViews();
+            // services.AddHttpContextAccessor();
+            // services.AddTransient<ShoppingCartActions>();    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +76,8 @@ namespace PizzaDelivery
 
             app.UseRouting();
 
+            app.UseSession();
+            
             app.UseAuthorization();
             
             app.UseAuthentication();    // аутентификация

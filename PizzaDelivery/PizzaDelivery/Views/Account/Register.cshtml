@@ -15,17 +15,17 @@
         <div class="form-floating mb-3">
             <input class="form-control" type="text" asp-for="Email" id="floatingInput" placeholder="name@example.com"/>
             <label for="floatingInput" asp-for="Email" class="form-label">Email</label>
-            <span asp-validation-for="Email"></span>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="Email"></span>
         </div>
         <div class="form-floating mb-3">
             <input class="form-control" asp-for="Password" id="floatingInput" placeholder="password"/>
             <label for="floatingInput" asp-for="Password" class="form-label">Пароль</label>
-            <span asp-validation-for="Password"></span>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="Password"></span>
         </div>
         <div class="form-floating mb-3">
             <input class="form-control" asp-for="ConfirmPassword" id="floatingInput" placeholder="password"/>
             <label for="floatingInput" asp-for="ConfirmPassword" class="form-label">Повторите пароль</label>
-            <span asp-validation-for="ConfirmPassword"></span>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="ConfirmPassword"></span>
         </div>
         <div class="form-floating mb-3">
             <input class="form-control" type="text" asp-for="Name" id="floatingInput" placeholder="name"/>
@@ -38,6 +38,7 @@
         <div class="form-floating mb-3">
             <input class="form-control" type="date" asp-for="DateOfBirthday" id="floatingInput" placeholder="date"/>
             <label for="floatingInput" asp-for="DateOfBirthday">Дата рождения</label>
+            <span class="badge rounded-pill bg-danger" asp-validation-for="DateOfBirthday"></span>
         </div>
         <div>
             <input class="btn btn-warning" type="submit" value="Регистрация"/>

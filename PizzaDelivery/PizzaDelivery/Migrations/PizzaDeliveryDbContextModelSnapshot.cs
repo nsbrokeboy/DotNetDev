@@ -19,22 +19,25 @@ namespace PizzaDelivery.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("PizzaDelivery.Models.AdditionalProduct", b =>
+            modelBuilder.Entity("PizzaDelivery.Models.CartItem", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("CartItemId")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<string>("CartId")
+                        .HasColumnType("text");
 
-                    b.ToTable("AdditionalProducts");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CartItemId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
@@ -44,27 +47,27 @@ namespace PizzaDelivery.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("AdditionalProductId")
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PizzaId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdditionalProductId");
-
-                    b.HasIndex("PizzaId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("PizzaDelivery.Models.Pizza", b =>
+            modelBuilder.Entity("PizzaDelivery.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,18 +77,18 @@ namespace PizzaDelivery.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("double precision");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Pizzas");
+                    b.ToTable("Product");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
 
             modelBuilder.Entity("PizzaDelivery.Models.User", b =>
@@ -115,31 +118,35 @@ namespace PizzaDelivery.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
+            modelBuilder.Entity("PizzaDelivery.Models.AdditionalProduct", b =>
                 {
-                    b.HasOne("PizzaDelivery.Models.AdditionalProduct", "AdditionalProduct")
+                    b.HasBaseType("PizzaDelivery.Models.Product");
+
+                    b.HasDiscriminator().HasValue("AdditionalProduct");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.Pizza", b =>
+                {
+                    b.HasBaseType("PizzaDelivery.Models.Product");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("double precision");
+
+                    b.HasDiscriminator().HasValue("Pizza");
+                });
+
+            modelBuilder.Entity("PizzaDelivery.Models.CartItem", b =>
+                {
+                    b.HasOne("PizzaDelivery.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("AdditionalProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PizzaDelivery.Models.Pizza", "Pizza")
-                        .WithMany()
-                        .HasForeignKey("PizzaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PizzaDelivery.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AdditionalProduct");
-
-                    b.Navigation("Pizza");
-
-                    b.Navigation("User");
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

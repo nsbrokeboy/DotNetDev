@@ -1,16 +1,22 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
 namespace PizzaDelivery.Models
 {
     public class Order
     {
+        [Key]
         public int Id { get; set; }
 
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public int OrderId { get; set; }
+        
+        public string Username { get; set; }
 
-        public Pizza Pizza { get; set; }
-        public int PizzaId { get; set; }
+        public int ProductId { get; set; }
 
-        public AdditionalProduct AdditionalProduct { get; set; }
-        public int AdditionalProductId { get; set; }
+        public int Quantity { get; set; }
+
+        public string Address { get; set; }
+        
     }
 }

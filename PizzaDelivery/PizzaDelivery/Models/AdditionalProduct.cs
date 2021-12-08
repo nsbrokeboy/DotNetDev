@@ -1,11 +1,7 @@
 namespace PizzaDelivery.Models
 {
-    public class AdditionalProduct
+    public class AdditionalProduct : Product
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
         
-        public double Cost { get; set; }
     }
 }

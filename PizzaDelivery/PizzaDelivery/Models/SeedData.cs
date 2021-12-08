@@ -26,7 +26,7 @@ public static class SeedData
                 Name = "Пепперони",
                 Cost = 349,
                 Weight = 520,
-                Description = @"Пикантная пепперони, увеличенная порция моцареллы,томаты, томатный соус"
+                Description = @"Пикантная пепперони, увеличенная порция моцареллы, томаты, томатный соус"
             },
             new Pizza()
             {
@@ -82,7 +82,7 @@ public static class SeedData
                 Name = "Четыре сезона",
                 Cost = 399,
                 Weight = 680,
-                Description = @"Увеличенная порция моцареллы, ветчина, пикантная пепперони, кубики брынзы, томаты, шампиньоны, итальянские травы, томатный соус"
+                Description = @"Увеличенная порция моцареллы, ветчина, пикантная пепперони, кубики брынзы, томаты, шампиньоны, томатный соус"
             });
         
         if (PizzaDeliveryDbContext == null || PizzaDeliveryDbContext.AdditionalProducts == null)
@@ -98,55 +98,55 @@ public static class SeedData
         PizzaDeliveryDbContext.AdditionalProducts.AddRange(
             new AdditionalProduct()
             {
-                Id = 1,
+                Id = 9,
                 Name = "Coca-Cola",
                 Cost = 69
             },
              new AdditionalProduct(){
-                 Id =2,
+                 Id = 10,
                  Name = "Sprite",
                  Cost = 69
             },
             new AdditionalProduct(){
-                Id =3,
+                Id = 11,
                 Name = "Fanta",
                 Cost = 69
             },
             new AdditionalProduct(){
-                Id =4,
+                Id = 12,
                 Name = "Lipton",
                 Cost = 79
             },
             new AdditionalProduct(){
-                Id =5,
+                Id = 13,
                 Name = "Orbit",
                 Cost = 39
             },
             new AdditionalProduct(){
-                Id =6,
+                Id = 14,
                 Name = "Влажная салфетка",
                 Cost = 5
             },
             new AdditionalProduct(){
-                Id =7,
+                Id = 15,
                 Name = "Фирменный магнит",
                 Cost = 99
             },
             new AdditionalProduct(){
-                Id =8,
+                Id = 16,
                 Name = "Морс",
                 Cost = 49
             },
             new AdditionalProduct(){
-                Id =9,
+                Id = 17,
                 Name = "Сок апельсиновый",
                 Cost = 79
             },
             new AdditionalProduct(){
-                Id = 10,
+                Id = 18,
                 Name = "Сок яблочный",
                 Cost = 79
             });;
-        PizzaDeliveryDbContext.SaveChanges(); //?
+        PizzaDeliveryDbContext.SaveChanges();
     }
 }
