@@ -1,8 +1,12 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "Ок";
+    ViewBag.Title = "Успешно";
     Layout = "_Layout";
 }
-
-<h2>Ок</h2>
+<br>
+<h2>Заказ успешно оформлен</h2>
+<br>
+<h6>Курьер будет у вас примерно в @(DateTime.Now.Hour + 1):@DateTime.Now.Minute</h6>
+<br>
+<a class="btn btn-warning" asp-controller="Home" asp-action="Index">На главную</a>

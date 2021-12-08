@@ -90,14 +90,17 @@
                 </div>
             }
         }
-        <h3>Итого: @total ₽</h3>
+        <h3>Итого: @total ₽</h3> 
+        <a class="btn btn-warning" asp-controller="Cart" asp-action="PreOrder">Заказать</a>
     }
     else
     {
-        <h3>Ваша корзина пуста</h3>
+        <h5>Ваша корзина пуста</h5>
+        <br>
+        <a class="btn btn-warning" asp-controller="Catalog" asp-action="AllProducts">Каталог</a>
     }
 }
-    <a asp-controller="Cart" asp-action="PreOrder">Заказать</a>
+   
 
 
 </div>

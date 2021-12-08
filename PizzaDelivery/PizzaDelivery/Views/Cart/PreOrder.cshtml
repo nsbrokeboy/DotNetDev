@@ -1,17 +1,91 @@
-﻿@model System.Collections.Generic.List<PizzaDelivery.Models.CartItem>
+﻿@using Microsoft.AspNetCore.Http.Extensions
+@model System.Collections.Generic.List<PizzaDelivery.Models.CartItem>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Подтверждение заказа";
     Layout = "_Layout";
 }
+
+<br>
+<h2>Подтверждение заказа</h2>
+<br>
+
 @{
-    foreach (var item in Model)
+    decimal total = 0;
+    
+    foreach (var cartItem in Model)
     {
-        <p>
-            @item.Product.Name
-           </p>
+        var summaryCost = cartItem.Quantity * cartItem.Product.Cost;
+        total += summaryCost;
+        if (cartItem.Product.GetType() == typeof(Pizza))
+        {
+            <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                            <img src="../imgs/@{@cartItem.ProductId}.jpeg" width="150" height="150" alt="...">
+                            <div>
+                                <a style="color:black; position: relative; left: 10px;"
+                                   asp-controller="Pizza" asp-action="Index" asp-route-id="@cartItem.ProductId">@cartItem.Product.Name
+                                </a>
+                                <br>
+                                <div>
+                                    <p style="color: #232020; position: relative; left: 10px">Цена: @cartItem.Product.Cost ₽</p>
+                                    <div style="position: relative; left: 10px" class="btn-group" role="group">
+                                        <p>Количество: @cartItem.Quantity</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="position:absolute; bottom:10px;">
+                                    <h6 style="position: relative; left: 10px;">
+                                        Стоимость: <span style="font-size: 110%" class="badge rounded-pill bg-warning text-dark">@summaryCost ₽</span>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                            <img src="../imgs/@{@cartItem.ProductId}.jpeg" width="150" height="150" alt="...">
+                            <div>
+                                <a style="color:black; position: relative; left: 10px;"
+                                   asp-controller="AdditionalProduct" asp-action="Index" asp-route-id="@cartItem.ProductId">@cartItem.Product.Name
+                                </a>
+                                <br>
+                                <div>
+                                    <p style="color: #232020; position: relative; left: 10px">Цена: @cartItem.Product.Cost ₽</p>
+                                    <div style="position: relative; left: 10px" class="btn-group" role="group">
+                                        <p>Количество: @cartItem.Quantity</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="position:absolute; bottom:10px;">
+                                    <h6 style="position: relative; left: 10px;">
+                                        Стоимость: <span style="font-size: 110%" class="badge rounded-pill bg-warning text-dark">@summaryCost ₽</span>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    }
     }
 }
-<a asp-controller="Cart" asp-action="MakeOrder">Заказать</a>
-
-<h2>title</h2>
+<br>
+<h3>Итого: @total ₽</h3>
+<br>
+    <div class="form-floating mb-3">
+                <input type="address" class="form-control" id="floatingInput"/>
+                <label for="floatingInput">Адрес доставки</label>
+            </div>
+<h3>Способ оплаты:</h3>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+  <label class="form-check-label" for="flexRadioDefault1">
+    Оплата наличными при получении
+  </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled>
+    <label class="form-check-label" for="flexRadioDefault2">
+        Оплата картой онлайн
+    </label>
+</div>
+<br>
+<a class="btn btn-warning" asp-controller="Cart" asp-action="MakeOrder">Заказать</a>
