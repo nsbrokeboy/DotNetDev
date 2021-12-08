@@ -10,8 +10,8 @@ using PizzaDelivery.Data;
 namespace PizzaDelivery.Migrations
 {
     [DbContext(typeof(PizzaDeliveryDbContext))]
-    [Migration("20211208170337_FixCart3")]
-    partial class FixCart3
+    [Migration("20211208192013_PizzaDeliveryDB")]
+    partial class PizzaDeliveryDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,15 +52,19 @@ namespace PizzaDelivery.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<string>("CartItemId")
-                        .HasColumnType("text");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CartItemId");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
@@ -145,15 +149,6 @@ namespace PizzaDelivery.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("PizzaDelivery.Models.Order", b =>
-                {
-                    b.HasOne("PizzaDelivery.Models.CartItem", "CartItem")
-                        .WithMany()
-                        .HasForeignKey("CartItemId");
-
-                    b.Navigation("CartItem");
                 });
 #pragma warning restore 612, 618
         }

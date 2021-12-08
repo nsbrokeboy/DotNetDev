@@ -4,10 +4,27 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PizzaDelivery.Migrations
 {
-    public partial class FixCart3 : Migration
+    public partial class PizzaDeliveryDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
@@ -62,32 +79,6 @@ namespace PizzaDelivery.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
-                    CartItemId = table.Column<string>(type: "text", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_ShoppingCartItems_CartItemId",
-                        column: x => x.CartItemId,
-                        principalTable: "ShoppingCartItems",
-                        principalColumn: "CartItemId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_CartItemId",
-                table: "Orders",
-                column: "CartItemId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartItems_ProductId",
                 table: "ShoppingCartItems",
@@ -100,10 +91,10 @@ namespace PizzaDelivery.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCartItems");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Product");
