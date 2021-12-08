@@ -15,5 +15,7 @@ namespace PizzaDelivery.Data
         public DbSet<AdditionalProduct> AdditionalProducts { get; set; }
         
         public DbSet<CartItem> ShoppingCartItems { get; set; }
+        
+        public DbSet<Order> Orders { get; set; }
     }
 }

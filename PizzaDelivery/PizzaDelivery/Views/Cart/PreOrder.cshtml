@@ -1,0 +1,17 @@
+﻿@model System.Collections.Generic.List<PizzaDelivery.Models.CartItem>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@{
+    foreach (var item in Model)
+    {
+        <p>
+            @item.Product.Name
+           </p>
+    }
+}
+<a asp-controller="Cart" asp-action="MakeOrder">Заказать</a>
+
+<h2>title</h2>

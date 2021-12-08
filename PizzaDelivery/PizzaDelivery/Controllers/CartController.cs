@@ -49,6 +49,16 @@ namespace PizzaDelivery.Controllers
             return Redirect(url);
         }
 
+        public IActionResult PreOrder()
+        {
+            return View(_actions.GetCartItems());
+        }
 
+        public IActionResult MakeOrder()
+        {
+            _actions.MakeOrder();
+            _actions.RemoveAllPositions();
+            return View();
+        }
     }
 }
