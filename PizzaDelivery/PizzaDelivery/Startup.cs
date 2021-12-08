@@ -19,9 +19,6 @@ namespace PizzaDelivery
 {
     public class Startup
     {
-        private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=dvkruglyak;Password=7f4fm76d5";
-        // private static string connectionString = "Host=localhost;Database=PizzaDelivery;Username=postgres;Password=Jopa18102001";
-        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,7 +34,7 @@ namespace PizzaDelivery
             services.AddTransient<ShoppingCartActions>();
             
             services.AddDbContext<PizzaDeliveryDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(Configuration.GetConnectionString("KruglyakConnection")));
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
@@ -48,13 +45,6 @@ namespace PizzaDelivery
             services.AddMvc()
                 .AddSessionStateTempDataProvider();
             services.AddSession();
-            
-            // services.AddScoped(sp => sp.GetService<IHttpContextAccessor>().HttpContext.Session);
-            // services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            // services.AddScoped<ShoppingCartActions>();
-            // services.AddControllersWithViews();
-            // services.AddHttpContextAccessor();
-            // services.AddTransient<ShoppingCartActions>();    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +57,6 @@ namespace PizzaDelivery
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
