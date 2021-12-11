@@ -15,4 +15,4 @@ For setting up database:
 ```
 dotnet ef database update
 ```
-in the project directory
+in the project's directory
