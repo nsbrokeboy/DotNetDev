@@ -7,5 +7,7 @@ namespace PizzaDelivery.Models
         public List<Pizza> Pizzas { get; set; }
 
         public List<AdditionalProduct> AdditionalProducts { get; set; }
+
+        public int MaxCost { get; set; }
     }
 }

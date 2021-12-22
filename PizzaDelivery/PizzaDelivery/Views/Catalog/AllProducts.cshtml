@@ -6,6 +6,22 @@
     Layout = "_Layout";
 }
 <br>
+<div class="input-group ">
+    <div class="input-group-prepend">
+        <span class="input-group-text" >Максимальная цена</span>
+    </div>
+    <div class="col-xs-3">
+        <form method="post" asp-controller="Catalog" asp-action="AllProducts">
+        <input type="text" class="form-control" name="cost" id="input_text1" max="1000" value="@Model.MaxCost" onchange="rangeinput1.value = input_text1.value"/>
+        <input oninput="input_text1.value = rangeinput1.value" class="form-control-range slider" type="range" min="0" max="1000" value="@Model.MaxCost" id="rangeinput1" step="50" onchange="input_text1.value = rangeinput1.value">
+        &nbsp;
+        <a>
+            <button type="submit" class="btn btn-warning">Подобрать</button>
+        </a>
+        </form>
+    </div>
+</div>
+<br>
 <h2>Пицца</h2>
 <br>
 <div class="container">
